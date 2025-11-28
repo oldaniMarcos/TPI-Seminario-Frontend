@@ -1,0 +1,28 @@
+:host {
+  *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  align-items: center;
+}
+
+.container h1 {
+  margin-bottom: 0.2rem;
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin: -40px 1rem 0;
+    padding: 1.5rem;
+  }
+
+  .image-banner {
+    height: 180px;
+  }
+}
