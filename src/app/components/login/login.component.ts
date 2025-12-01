@@ -29,10 +29,6 @@ export class LoginComponent {
   ) { }
 
   onSubmit() {
-
-    //remove this later
-    this.router.navigate(['/home'])
-
     this.authService.login(this.loginData.username, this.loginData.password).subscribe(
       (res) => {
         this.localStorage.setItem('token', res.token)

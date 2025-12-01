@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-not-found',
@@ -9,4 +11,17 @@ import { Component } from '@angular/core';
 })
 export class PageNotFoundComponent {
 
+  constructor(private router: Router, private authService: AuthService) {}
+
+  return() {
+
+    const token = this.authService.getToken()
+
+    if (!token) {
+      this.router.navigate(['/login']) 
+    } else {
+      this.router.navigate(['/home'])
+    }
+    
+  }
 }

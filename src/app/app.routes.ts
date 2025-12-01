@@ -8,6 +8,12 @@ import { CashflowManagementComponent } from './components/cashflow-management/ca
 import { ManageComponent } from './components/manage/manage.component';
 import { InstallmentsComponent } from './components/installments/installments.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { ClientsComponent } from './components/clients/clients.component';
+import { SpeciesBreedsComponent } from './components/species-breeds/species-breeds.component';
+import { SupplyTypesComponent } from './components/supply-types/supply-types.component';
+import { VetsComponent } from './components/vets/vets.component';
+import { WithdrawalsComponent } from './components/withdrawals/withdrawals.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
 
@@ -15,17 +21,27 @@ export const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
 
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 
-  { path: 'new-visit', component: NewVisitComponent },
+  { path: 'new-visit', component: NewVisitComponent, canActivate: [AuthGuard] },
 
-  { path: 'cashflow-management', component: CashflowManagementComponent },
+  { path: 'cashflow-management', component: CashflowManagementComponent, canActivate: [AuthGuard] },
 
-  { path: 'manage', component: ManageComponent },
+  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard] },
 
-  { path: 'installments', component: InstallmentsComponent },
+  { path: 'installments', component: InstallmentsComponent, canActivate: [AuthGuard] },
 
-  { path: 'reports', component: ReportsComponent },
+  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
+
+  { path: 'clients', component: ClientsComponent, canActivate: [AuthGuard] },
+
+  { path: 'species-breeds', component: SpeciesBreedsComponent, canActivate: [AuthGuard] },
+
+  { path: 'supply-types', component: SupplyTypesComponent, canActivate: [AuthGuard] },
+
+  { path: 'vets', component: VetsComponent, canActivate: [AuthGuard] },
+
+  { path: 'withdrawals', component: WithdrawalsComponent, canActivate: [AuthGuard] },
 
   // Errors
 
