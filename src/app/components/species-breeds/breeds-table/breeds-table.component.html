@@ -1,0 +1,16 @@
+<table class="breeds-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let breed of breeds">
+      <td>{{ breed.id }}</td>
+      <td>{{ breed.description }}</td>
+
+    </tr>
+  </tbody>
+</table>

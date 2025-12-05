@@ -5,7 +5,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true })
@@ -15,5 +15,6 @@ export const appConfig: ApplicationConfig = {
     , provideHttpClient(withInterceptors([AuthInterceptor]))
     , provideAnimations()
     , ConfirmationService
+    , MessageService
   ]
 };

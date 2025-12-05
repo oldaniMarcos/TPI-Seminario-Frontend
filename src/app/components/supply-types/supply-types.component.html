@@ -1,1 +1,17 @@
-<p>supply-types works!</p>
+<img src="placeholder.jpg" class="image-banner" alt="">
+<div class="container">
+  <h1>Tipos de Insumos</h1>
+
+  <div class="actions-bar">
+    <div class="left-actions">
+      <button class="btn">Nuevo</button>
+    </div>
+
+    <div class="right-actions">
+      <button class="exit" routerLink="/manage">Volver</button>
+    </div>
+  </div>
+
+
+  <app-supply-types-table [supplyTypes]="supplyTypes">
+  </app-supply-types-table>

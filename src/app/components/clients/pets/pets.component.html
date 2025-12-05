@@ -1,0 +1,20 @@
+<img src="placeholder.jpg" class="image-banner" alt="">
+<div class="container">
+  <h1>Mascotas</h1>
+
+  <div class="actions-bar">
+    <div class="left-actions">
+      <button class="btn">Nuevo</button>
+      <button class="btn">Adoptar</button>
+    </div>
+
+    <div class="right-actions">
+      <button class="exit" routerLink="/clients">Volver</button>
+    </div>
+  </div>
+
+
+  <app-pets-table [pets]="pets" (stateChangeRequest)="confirmStateChange($event)">
+  </app-pets-table>
+
+<p-confirmDialog></p-confirmDialog>

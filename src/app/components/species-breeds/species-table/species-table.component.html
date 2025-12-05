@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Descripción</th>
+      <th>Razas</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let species of species">
+      <td>{{ species.id }}</td>
+      <td>{{ species.description }}</td>
+      <td>
+        <a class="link" (click)="goToBreeds(species.id!)">{{species.breedsCount}}</a>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

@@ -40,6 +40,8 @@ export interface Client {
   phone: string,
   address: string,
   state: 'alta' | 'baja',
+
+  petsCount?: number,
 }
 
 export interface Installment {
@@ -66,6 +68,9 @@ export interface Pet {
   state: 'alta' | 'baja',
   clientId: number,
   breedId: number,
+
+  breedName?: string,
+  speciesName?: string,
 }
 
 export interface ProfitMargin {
@@ -77,6 +82,8 @@ export interface ProfitMargin {
 export interface Species {
   id?: number,
   description: string,
+
+  breedsCount?: number,
 }
 
 export interface SupplyPrice {
@@ -90,6 +97,9 @@ export interface SupplyPrice {
 export interface SupplyType {
   id?: number,
   description: string,
+
+  currentPrice?: number,
+  lotsCount?: number,
 }
 
 export interface User {

@@ -1,6 +1,7 @@
 @import './styles/variables.scss';
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 
 html,
 body,
@@ -143,6 +144,46 @@ form {
   }
 }
 
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+
+  th,
+  td {
+    padding: 0.75rem 1rem;
+    text-align: center;
+  }
+
+  thead {
+    background-color: #f1f3f6;
+  }
+
+  th {
+    font-weight: 600;
+    color: #2c3e50;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #eee;
+
+    &:hover {
+      background-color: #f9fafb;
+    }
+  }
+
+  .link {
+    color: #4caf50;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
 h2 {
   font-size: 1.5rem;
   font-weight: bold;
@@ -153,6 +194,12 @@ h2 {
 input,
 select {
   width: 10rem;
+}
+
+input:focus{
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.15);
 }
 
 .btn {
@@ -179,6 +226,12 @@ select {
     background-color: #bdbdbd;
     cursor: not-allowed;
   }
+}
+
+.btn-small {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  margin: 0 0.25rem 0 0;
 }
 
 .edit {
@@ -302,6 +355,19 @@ select {
   background-color: transparent;
   padding: 0;
   border: none;
+}
+
+.p-dialog .p-dialog-footer {
+  text-align: center;
+
+  .cancel, .btn {
+    margin: 0;
+  }
+
+  .cancel {
+    margin-right: 8px;
+  }
+
 }
 
 .sidebar {

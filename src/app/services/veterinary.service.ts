@@ -34,4 +34,8 @@ export class VeterinaryService {
   delete(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.URL}/${id}`, {});
   }
+
+  updateState(id: number, state: 'alta' | 'baja'): Observable<any> {
+    return this.apiService.patch<{state: 'alta' | 'baja'}, any>(`${this.URL}/${id}/state`, { state }, {})
+  }
 }

@@ -1,1 +1,16 @@
-<p>species-breeds works!</p>
+<img src="placeholder.jpg" class="image-banner" alt="">
+<div class="container">
+  <h1>Especies</h1>
+
+  <div class="actions-bar">
+    <div class="left-actions">
+    </div>
+
+    <div class="right-actions">
+      <button class="exit" routerLink="/manage">Volver</button>
+    </div>
+  </div>
+
+
+  <app-species-table [species]="species">
+  </app-species-table>

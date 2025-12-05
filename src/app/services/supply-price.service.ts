@@ -34,4 +34,8 @@ export class SupplyPriceService {
   delete(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.URL}/${id}`, {});
   }
+
+  findTypes(id: number): Observable<SupplyPrice[]> {
+    return this.apiService.get<SupplyPrice[]>(`${this.URL}/types/${id}`, {})
+  }
 }

@@ -1,0 +1,47 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nro. Matrícula</th>
+      <th>Tipo Doc.</th>
+      <th>Nro. Doc.</th>
+      <th>Nombre</th>
+      <th>Teléfono</th>
+      <th>Dirección</th>
+      <th>Email</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let vet of vets">
+      <td>{{ vet.id }}</td>
+      <td>{{ vet.licenseNumber }}</td>
+      <td>{{ vet.docType }}</td>
+      <td>{{ vet.docNum }}</td>
+      <td>{{ vet.fullName }}</td>
+      <td>{{ vet.phone }}</td>
+      <td>{{ vet.address }}</td>
+      <td>{{ vet.email }}</td>
+      <td>
+        <span class="state" [class.alta]="vet.state === 'alta'" [class.baja]="vet.state === 'baja'">
+          {{ vet.state | uppercase }}
+        </span>
+      </td>
+
+      <td class="actions">
+        <button class="btn btn-small edit" (click)="onEdit(vet)">Editar</button>
+
+        <button *ngIf="vet.state === 'alta'" class="btn btn-small cancel" (click)="requestStateChange(vet)">
+          Dar de baja
+        </button>
+
+        <button *ngIf="vet.state === 'baja'" class="btn btn-small" (click)="requestStateChange(vet)">
+          Dar de alta
+        </button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

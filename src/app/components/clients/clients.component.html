@@ -1,1 +1,39 @@
-<p>clients works!</p>
+<img src="placeholder.jpg" class="image-banner" alt="">
+<div class="container">
+  <h1>Clientes</h1>
+
+  <div class="actions-bar">
+    <div class="left-actions search-group">
+      <button class="btn" (click)="toggleCreatePopup()">Nuevo</button>
+
+      <select [(ngModel)]="docTypeFilter" (change)="findClients()" class="search-select">
+        <option value="">Todos</option>
+        <option value="DNI">DNI</option>
+        <option value="CI">CI</option>
+        <option value="LE">LE</option>
+        <option value="LC">LC</option>
+      </select>
+
+      <input type="text" [(ngModel)]="dniFilter" (input)="findClients()" placeholder="Buscar por nro. de doc." class="search-input" />
+    </div>
+
+    <div class="right-actions">
+      <button class="exit" routerLink="/manage">Volver</button>
+    </div>
+  </div>
+
+
+  <app-clients-table [clients]="clients" (edit)="toggleUpdatePopup($event)" (stateChangeRequest)="confirmStateChange($event)">
+  </app-clients-table>
+
+  <p-confirmDialog></p-confirmDialog>
+
+  <!--create-->
+  <!-- <app-client-popup [(display)]="displayCreatePopup" (confirm)="onConfirmCreate($event)"
+    title="Crear client"></app-client-popup> -->
+
+  <!--update-->
+  <!-- <app-client-popup [client]="selected" [(display)]="displayUpdatePopup" (confirm)="onConfirmUpdate($event)"
+    title="Editar client"></app-client-popup> -->
+
+  <!-- <app-client-info-popup [client]="selected" [(display)]="displaySelectPopup"></app-client-info-popup> -->

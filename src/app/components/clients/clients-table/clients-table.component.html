@@ -1,0 +1,47 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tipo Doc.</th>
+      <th>Nro. Doc.</th>
+      <th>Nombre y Apellido</th>
+      <th>Teléfono</th>
+      <th>Dirección</th>
+      <th>Mascotas</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let client of clients">
+      <td>{{ client.id }}</td>
+      <td>{{ client.docType }}</td>
+      <td>{{ client.docNum }}</td>
+      <td>{{ client.fullName }}</td>
+      <td>{{ client.phone }}</td>
+      <td>{{ client.address }}</td>
+      <td>
+        <a class="link" (click)="goToPets(client.id!)">{{ client.petsCount }}</a>
+      </td>
+      <td>
+        <span class="state" [class.alta]="client.state === 'alta'" [class.baja]="client.state === 'baja'">
+          {{ client.state | uppercase }}
+        </span>
+      </td>
+
+      <td class="actions">
+        <button class="btn btn-small edit" (click)="onEdit(client)">Editar</button>
+
+        <button *ngIf="client.state === 'alta'" class="btn btn-small cancel" (click)="requestStateChange(client)">
+          Dar de baja
+        </button>
+        
+        <button *ngIf="client.state === 'baja'" class="btn btn-small" (click)="requestStateChange(client)">
+          Dar de alta
+        </button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

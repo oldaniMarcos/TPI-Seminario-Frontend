@@ -1,0 +1,26 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Lote</th>
+      <th>Vencimiento</th>
+      <th>Unidades</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let lot of lots">
+      <td>{{ lot.id }}</td>
+      <td>{{ lot.lotNumber }}</td>
+      <td>{{ lot.dueDate }}</td>
+      <td>{{ lot.units }}</td>
+      
+      <td class="actions">
+        <button class="btn btn-small edit" (click)="onEdit(lot)">Editar</button>
+        <button class="btn btn-small delete" (click)="onDelete(lot)">Eliminar</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

@@ -34,4 +34,12 @@ export class PetService {
   delete(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.URL}/${id}`, {});
   }
+
+  findByClientId(id: number): Observable<Pet[]> {
+    return this.apiService.get<Pet[]>(`${this.URL}/client/${id}`, {})
+  }
+
+  updateState(id: number, state: 'alta' | 'baja'): Observable<any> {
+    return this.apiService.patch<{state: 'alta' | 'baja'}, any>(`${this.URL}/${id}/state`, { state }, {})
+  }
 }

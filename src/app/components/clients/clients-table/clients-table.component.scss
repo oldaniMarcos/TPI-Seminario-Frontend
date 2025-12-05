@@ -1,0 +1,22 @@
+.state {
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  &.alta {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  &.baja {
+    background-color: #fdecea;
+    color: #c62828;
+  }
+}
+
+.btn-small {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  margin: 0 0.25rem 0 0 ;
+}

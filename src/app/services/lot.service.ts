@@ -34,4 +34,8 @@ export class LotService {
   delete(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.URL}/${id}`, {});
   }
+
+  findBySupplyTypeId(id: number): Observable<Lot[]> {
+    return this.apiService.get<Lot[]>(`${this.URL}/types/${id}`, {})
+  }
 }

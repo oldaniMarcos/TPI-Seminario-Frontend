@@ -31,9 +31,9 @@ export class BreedService {
     return this.apiService.patch<Breed, Breed>(`${this.URL}/${id}`, breed, {});
   }
 
-  // findSpecies(id: number): Observable<Species> {
-  //   return this.apiService.get<Species>(`${this.URL}/${id}/Species`, {});
-  // }
+  findSpecies(id: number): Observable<Breed[]> {
+    return this.apiService.get<Breed[]>(`${this.URL}/species/${id}`, {});
+  }
 
   delete(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.URL}/${id}`, {});

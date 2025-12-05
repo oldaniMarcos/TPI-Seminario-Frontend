@@ -1,0 +1,43 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Historia Clinica</th>
+      <th>Nombre</th>
+      <th>Fecha Nacimiento</th>
+      <th>Edad</th>
+      <th>Especie</th>
+      <th>Raza</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let pet of pets">
+      <td>{{ pet.id }}</td>
+      <td>{{ pet.name }}</td>
+      <td>{{ pet.birthDate | date:'shortDate' }}</td>
+      <td>{{ pet.age }}</td>
+      <td>{{ pet.speciesName }}</td>
+      <td>{{ pet.breedName }}</td>
+      <td>
+        <span class="state" [class.alta]="pet.state === 'alta'" [class.baja]="pet.state === 'baja'">
+          {{ pet.state | uppercase }}
+        </span>
+      </td>
+
+      <td class="actions">
+        <button class="btn btn-small edit" (click)="onEdit(pet)">Editar</button>
+        
+        <button *ngIf="pet.state === 'alta'" class="btn btn-small cancel" (click)="requestStateChange(pet)">
+          Dar de baja
+        </button>
+        
+        <button *ngIf="pet.state === 'baja'" class="btn btn-small" (click)="requestStateChange(pet)">
+          Dar de alta
+        </button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
