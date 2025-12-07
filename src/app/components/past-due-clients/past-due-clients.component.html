@@ -1,1 +1,19 @@
-<p>past-due-clients works!</p>
+<img src="placeholder.jpg" class="image-banner" alt="">
+<div class="container">
+  <h1>Clientes Morosos</h1>
+
+  <div class="actions-bar">
+    <div class="left-actions">
+    </div>
+
+    <div class="right-actions">
+      <button class="exit" routerLink="/reports">Volver</button>
+    </div>
+  </div>
+
+
+  <app-past-due-table [clients]="clients"
+    (stateChangeRequest)="confirmStateChange($event)">
+  </app-past-due-table>
+
+  <p-confirmDialog></p-confirmDialog>

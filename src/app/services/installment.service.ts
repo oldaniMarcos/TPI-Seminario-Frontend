@@ -34,4 +34,9 @@ export class InstallmentService {
   delete(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.URL}/${id}`, {});
   }
+
+  payInstallment(id: number) {
+    return this.apiService.patch<Installment, Partial<Installment>>(`${this.URL}/${id}/pay`, {}, {});
+  }
+
 }

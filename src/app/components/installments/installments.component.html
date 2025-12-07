@@ -1,1 +1,40 @@
-<p>installments works!</p>
+<img src="placeholder.jpg" class="image-banner" alt="">
+<div class="container">
+  <h1>Pago de Cuotas</h1>
+
+  <div class="actions-bar">
+    <div class="left-actions search-group">
+
+      <select [(ngModel)]="docTypeFilter" class="search-select">
+        <option value="DNI">DNI</option>
+        <option value="CI">CI</option>
+        <option value="LE">LE</option>
+        <option value="LC">LC</option>
+      </select>
+
+      <input type="text" [(ngModel)]="dniFilter" placeholder="Buscar por nro. de doc."
+        class="search-input" />
+      
+      <button class="btn" (click)="findClient()">Buscar</button>
+    </div>
+
+    <div class="right-actions">
+      <button class="exit" routerLink="/home">Volver</button>
+    </div>
+  </div>
+
+  <div *ngIf="invalidDocMessage" class="error-message">
+    {{ invalidDocMessage }}
+  </div>
+
+  <div *ngIf="clientDeactivatedMessage" class="error-message">
+    {{ clientDeactivatedMessage }}
+  </div>
+
+  <div *ngIf="noPaymentsDueMessage" class="info-message">
+    {{ noPaymentsDueMessage }}
+  </div>
+
+  <app-installments-table *ngIf="clientValid" [client]="client" (payInstallmentEvent)="confirmPayment($event)"></app-installments-table>
+
+  <p-confirmDialog></p-confirmDialog>

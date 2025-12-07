@@ -38,4 +38,16 @@ export class ClientService {
   updateState(id: number, state: 'alta' | 'baja'): Observable<any> {
     return this.apiService.patch<{state: 'alta' | 'baja'}, any>(`${this.URL}/${id}/state`, { state }, {})
   }
+
+  findAllPastDue(): Observable<any[]> {
+    return this.apiService.get<any[]>(`${this.URL}/past-due`, {});
+  }
+
+  updateStateInstallment(id: number, state: 'alta' | 'baja'): Observable<any> {
+    return this.apiService.patch<{state: 'alta' | 'baja'}, any>(`${this.URL}/${id}/state-installment`, { state }, {})
+  }
+
+  findByDoc(docType: string, docNum: string): Observable<any> {
+    return this.apiService.get<any>(`${this.URL}/doc/${docType}/${docNum}`, { });
+  }
 }
