@@ -1,1 +1,19 @@
-<p>withdrawals works!</p>
+<img src="placeholder.jpg" class="image-banner" alt="">
+<div class="container">
+  <h1>Egresos</h1>
+
+  <div class="actions-bar">
+    <div class="left-actions search-group">
+      <button class="btn">Nuevo</button>
+    </div>
+
+    <div class="right-actions">
+      <button class="exit" routerLink="/cashflow-management">Volver</button>
+    </div>
+  </div>
+
+
+  <app-withdrawals-table [withdrawals]="withdrawals" (cancelRequest)="confirmCancel($event)">
+  </app-withdrawals-table>
+
+  <p-confirmDialog></p-confirmDialog>

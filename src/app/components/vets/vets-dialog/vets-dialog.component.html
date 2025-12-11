@@ -1,0 +1,40 @@
+<form [formGroup]="form">
+
+  <p-floatLabel>
+    <input pInputText formControlName="licenseNumber" id="licenseNumber"/>
+    <label for="licenseNumber">Nro. de Matrícula</label>
+  </p-floatLabel>
+
+  <p-dropdown [options]="docTypes" formControlName="docType" placeholder="Tipo de Documento">
+  </p-dropdown>
+
+  <p-floatLabel>
+    <input pInputText formControlName="docNum" id="docNum"/>
+    <label for="docNum">Documento</label>
+  </p-floatLabel>
+
+  <p-floatLabel>
+    <input pInputText formControlName="fullName" />
+    <label>Nombre Completo</label>
+  </p-floatLabel>
+
+  <p-floatLabel>
+    <input pInputText formControlName="phone" />
+    <label>Teléfono</label>
+  </p-floatLabel>
+
+  <p-floatLabel>
+    <input pInputText formControlName="address" />
+    <label>Dirección</label>
+  </p-floatLabel>
+
+  <p-floatLabel>
+    <input pInputText formControlName="email" />
+    <label>Email</label>
+  </p-floatLabel>
+
+  <div class="buttons">
+    <button class="btn footer-btn" (click)="submit()">Guardar</button>
+    <button class="cancel footer-btn" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

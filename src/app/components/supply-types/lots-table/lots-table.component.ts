@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Lot } from '../../../../types';
 
 @Component({
@@ -12,12 +12,17 @@ import { Lot } from '../../../../types';
 export class LotsTableComponent {
 
   @Input() lots: Lot[] = []
+  @Input() supplyTypeId: number = 0;
+
+  @Output() edit = new EventEmitter<Lot>();
+  @Output() delete = new EventEmitter<Lot>();
 
   onEdit(lot: Lot) {
-    console.log('WIP...', lot);
+    lot.supplyTypeId = this.supplyTypeId;
+    this.edit.emit(lot);
   }
 
   onDelete(lot: Lot) {
-    console.log('WIP...', lot);
+    this.delete.emit(lot);
   }
 }

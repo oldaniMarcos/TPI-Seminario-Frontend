@@ -8,15 +8,20 @@ import { FormsModule } from '@angular/forms';
 import { Veterinary } from '../../../types';
 import { VeterinaryService } from '../../services/veterinary.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
+import { VetsDialogComponent } from "./vets-dialog/vets-dialog.component";
 
 @Component({
   selector: 'app-vets',
   standalone: true,
-  imports: [CommonModule, VetsTableComponent, RouterLink, ConfirmDialogModule, ToastModule, FormsModule],
+  imports: [CommonModule, VetsTableComponent, RouterLink, ConfirmDialogModule, ToastModule, FormsModule, DialogModule, VetsDialogComponent],
   templateUrl: './vets.component.html',
   styleUrl: './vets.component.scss'
 })
 export class VetsComponent {
+  showDialog: boolean = false;
+  dialogTitle: string = '';
+  selectedVeterinary: Veterinary | null = null;
   vets: Veterinary[] = []
 
   constructor(
@@ -36,6 +41,42 @@ export class VetsComponent {
         this.vets = data
       },
     );
+  }
+
+  newVeterinary() {
+    this.selectedVeterinary = null;
+    this.dialogTitle = 'Nuevo Veterinario';
+    this.showDialog = true;
+  }
+
+  editVeterinary(vet: Veterinary) {
+    
+    this.selectedVeterinary = vet;
+    this.dialogTitle = 'Editar Veterinario';
+    this.showDialog = true;
+  }
+
+  onSave(data: Veterinary) {
+    if (this.selectedVeterinary) {
+
+      this.vetService.patch(this.selectedVeterinary.id!, data).subscribe(() => {
+        const index = this.vets.findIndex(p => p.id === this.selectedVeterinary!.id);
+        if (index !== -1) {
+          this.vets[index] = { ...this.selectedVeterinary!, ...data };
+        }
+        this.showDialog = false;
+      });
+    } else {
+
+      this.vetService.post(data).subscribe((vet) => {
+        this.vets.push(vet);
+        this.showDialog = false;
+      });
+    }
+  }
+
+  onCancel() {
+    this.showDialog = false;
   }
 
   confirmStateChange(vet: Veterinary) {

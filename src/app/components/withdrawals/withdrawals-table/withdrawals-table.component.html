@@ -1,0 +1,25 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Fecha y Hora</th>
+      <th>Descripción</th>
+      <th>Valor</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let withdrawal of withdrawals">
+      <td>{{ withdrawal.id }}</td>
+      <td>{{ withdrawal.dateTime | date:"medium"}}</td>
+      <td>{{ withdrawal.description }}</td>
+      <td>{{ withdrawal.amount | currency}}</td>
+
+      <td class="actions">
+        <button class="btn btn-small cancel" (click)="onCancel(withdrawal)">Cancelar</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

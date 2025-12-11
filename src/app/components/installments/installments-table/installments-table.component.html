@@ -19,7 +19,7 @@
       <td>
         <div *ngFor="let i of client!.installments" class="installment-row">
           <div class="installments">
-            ${{ i.amount }} - {{ i.dueDate }}
+            {{ i.amount | currency }} - {{ i.dueDate }}
           </div>
           <button class="btn btn-small" [disabled]="!isInstallmentPayable(i)" (click)="payInstallment(i)">
             Pagar

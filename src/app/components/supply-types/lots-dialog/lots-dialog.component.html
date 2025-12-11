@@ -1,0 +1,22 @@
+<form [formGroup]="form">
+
+  <p-floatLabel>
+    <input pInputText formControlName="lotNumber" id="lotNumber" type="text" required />
+    <label for="lotNumber">Lote</label>
+  </p-floatLabel>
+
+  <p-floatLabel>
+    <input pInputText formControlName="dueDate" id="dueDate" type="date" required />
+    <label for="dueDate">Fecha de Vencimiento</label>
+  </p-floatLabel>
+
+  <p-floatLabel>
+    <input pInputText formControlName="units" id="units" type="number" />
+    <label for="units">Unidades</label>
+  </p-floatLabel>
+
+  <div class="buttons">
+    <button class="btn footer-btn" (click)="submit()">Guardar</button>
+    <button class="cancel footer-btn" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

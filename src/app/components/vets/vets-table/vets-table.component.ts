@@ -13,9 +13,10 @@ export class VetsTableComponent {
   @Input() vets: Veterinary[] = []
 
   @Output() stateChangeRequest = new EventEmitter<Veterinary>()
+  @Output() editRequest = new EventEmitter<Veterinary>()
 
   onEdit(vet: Veterinary) {
-    console.log('WIP...', vet);
+    this.editRequest.emit(vet)
   }
 
   requestStateChange(vet: Veterinary) {

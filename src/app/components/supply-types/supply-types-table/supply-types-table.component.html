@@ -14,7 +14,7 @@
       <td>{{ supplyType.id }}</td>
       <td>{{ supplyType.description }}</td>
       <td>
-        <a class="link" (click)="goToPrices(supplyType.id!)">{{supplyType.currentPrice}}</a>
+        <a class="link" (click)="goToPrices(supplyType.id!)">{{supplyType.currentPrice | currency }}</a>
       </td>
       <td>
         <a class="link" (click)="goToLots(supplyType.id!)">{{supplyType.lotsCount}}</a>

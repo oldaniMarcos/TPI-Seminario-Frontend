@@ -13,7 +13,7 @@
       </select>
 
       <input type="text" [(ngModel)]="dniFilter" placeholder="Buscar por nro. de doc."
-        class="search-input" />
+        class="search-input" (keyup.enter)="findClient()"/>
       
       <button class="btn" (click)="findClient()">Buscar</button>
     </div>

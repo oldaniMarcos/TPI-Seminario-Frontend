@@ -19,6 +19,10 @@ export class WithdrawalService {
     return this.apiService.get<Withdrawal[]>(this.URL, {});
   }
 
+  findAllPending(): Observable<Withdrawal[]> {
+    return this.apiService.get<Withdrawal[]>(`${this.URL}/pending`, {});
+  }
+
   findOne(id: number): Observable<Withdrawal> {
     return this.apiService.get<Withdrawal>(`${this.URL}/${id}`, {});
   }

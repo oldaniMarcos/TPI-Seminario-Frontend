@@ -4,7 +4,7 @@
 
   <div class="actions-bar">
     <div class="left-actions">
-      <button class="btn">Nuevo</button>
+      <button class="btn" (click)="newLot()">Nuevo</button>
     </div>
 
     <div class="right-actions">
@@ -13,5 +13,15 @@
   </div>
 
 
-  <app-lots-table [lots]="lots">
+  <app-lots-table [lots]="lots" (edit)="editLot($event)" [supplyTypeId]="supplyTypeId" (delete)="confirmDelete($event)">
   </app-lots-table>
+
+  <p-dialog [(visible)]="showDialog" [modal]="true" [header]="dialogTitle" closeOnEscape="false" draggable="false"
+    resizable="false" [style]="{width: '25%'}">
+  
+    <app-lots-dialog [data]="selectedLot" [supplyTypeId]="supplyTypeId" (save)="onSave($event)" (cancel)="onCancel()">
+    </app-lots-dialog>
+  
+  </p-dialog>
+
+  <p-confirmDialog></p-confirmDialog>

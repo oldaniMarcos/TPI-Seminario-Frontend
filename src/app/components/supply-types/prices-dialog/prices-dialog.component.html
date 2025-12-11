@@ -1,0 +1,20 @@
+<form [formGroup]="form">
+
+  <p-floatLabel>
+    <input pInputText formControlName="beginDate" id="beginDate" type="date" required/>
+    <label for="beginDate">Fecha Desde</label>
+  </p-floatLabel>
+
+  <p-dropdown [options]="currencies" formControlName="currency" placeholder="Tipo de Moneda">
+  </p-dropdown>
+
+  <p-floatLabel>
+    <input pInputText formControlName="price" id="price" type="number"/>
+    <label for="price">Precio</label>
+  </p-floatLabel>
+
+  <div class="buttons">
+    <button class="btn footer-btn" (click)="submit()">Guardar</button>
+    <button class="cancel footer-btn" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>
