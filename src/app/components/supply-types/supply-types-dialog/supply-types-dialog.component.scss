@@ -1,0 +1,43 @@
+input {
+  width: 100%;
+}
+
+form {
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.p-dropdown {
+  width: 100%;
+  text-align: left;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  button {
+    margin-top: 0;
+    width: 100%;
+  }
+}
+
+input[type=date]:required:invalid::-webkit-datetime-edit {
+  color: transparent;
+}
+
+input[type=date]:focus::-webkit-datetime-edit {
+  color: #4b5563 !important;
+}
+
+h2, h1 {
+  text-align: left;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+:host ::ng-deep .p-dropdown {
+  width: 100%;
+  text-align: left;
+}

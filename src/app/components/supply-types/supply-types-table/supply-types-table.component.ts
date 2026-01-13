@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SupplyType } from '../../../../types';
 import { Router } from '@angular/router';
 
@@ -17,6 +17,7 @@ export class SupplyTypesTableComponent {
   ) {}
 
   @Input() supplyTypes: SupplyType[] = []
+  @Output() edit = new EventEmitter<SupplyType>();
 
   goToLots(supplyTypeId: number) {
     this.router.navigate(['/types', supplyTypeId, 'lots'])
@@ -27,6 +28,6 @@ export class SupplyTypesTableComponent {
   }
 
   onEdit(supplyType: SupplyType) {
-    console.log('WIP...', supplyType);
+    this.edit.emit(supplyType);
   }
 }

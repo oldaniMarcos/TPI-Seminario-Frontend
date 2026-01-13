@@ -1,0 +1,47 @@
+<form [formGroup]="form">
+
+  <p-floatLabel>
+    <input pInputText formControlName="description" id="description" type="text" required />
+    <label for="description">Descripción</label>
+  </p-floatLabel>
+
+  <ng-container *ngIf="visible">
+
+  <h1>Lote</h1>
+
+  <p-floatLabel>
+    <input pInputText formControlName="lotNumber" id="lotNumber" type="text" required />
+    <label for="lotNumber">Lote</label>
+  </p-floatLabel>
+  
+  <p-floatLabel>
+    <input pInputText formControlName="dueDate" id="dueDate" type="date" required />
+    <label for="dueDate">Fecha de Vencimiento</label>
+  </p-floatLabel>
+  
+  <p-floatLabel>
+    <input pInputText formControlName="units" id="units" type="number" />
+    <label for="units">Unidades</label>
+  </p-floatLabel>
+
+  <h1>Precio</h1>
+
+  <p-floatLabel>
+    <input pInputText formControlName="beginDate" id="beginDate" type="date" readonly />
+  </p-floatLabel>
+  
+  <p-dropdown [options]="currencies" formControlName="currency" placeholder="Tipo de Moneda">
+  </p-dropdown>
+  
+  <p-floatLabel>
+    <input pInputText formControlName="price" id="price" type="number" />
+    <label for="price">Precio</label>
+  </p-floatLabel>
+
+  </ng-container>
+
+  <div class="buttons">
+    <button class="btn footer-btn" (click)="submit()">Guardar</button>
+    <button class="cancel footer-btn" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

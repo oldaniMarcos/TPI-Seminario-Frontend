@@ -24,8 +24,10 @@ export class LotsComponent {
   lots: Lot[] = []
   supplyTypeId = 0
   showDialog: boolean = false;
+  renderDialogContent: boolean = false;
   dialogTitle: string = '';
   selectedLot: Lot | null = null;
+
 
   constructor(
     private lotService: LotService,
@@ -87,17 +89,23 @@ export class LotsComponent {
   newLot() {
     this.selectedLot = null;
     this.dialogTitle = 'Nuevo Lote';
+    this.renderDialogContent = true;
     this.showDialog = true;
   }
 
   editLot(lot: Lot) {
     this.selectedLot = lot;
     this.dialogTitle = 'Editar Lote';
+    this.renderDialogContent = true;
     this.showDialog = true;
   }
 
   onCancel() {
     this.showDialog = false;
+  }
+
+  onDialogHide() {
+    this.renderDialogContent = false;
   }
 
   onSave(data: Lot) {

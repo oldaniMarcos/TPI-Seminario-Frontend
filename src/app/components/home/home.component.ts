@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CashFlowService } from '../../services/cash-flow.service';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,28 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+
+  cashRegisterOpen: boolean = false;
   
   constructor(
       private router: Router
     , private authService: AuthService
+    , private cashFlowService: CashFlowService,
   ) {}
+
+  ngOnInit() {
+    this.checkCashRegisterState();
+  }
+
+  checkCashRegisterState(): void {
+    this.cashFlowService.findLatest().subscribe(
+      (data) => {
+        
+        this.cashRegisterOpen = data.closeType === '' && data.closeDate === null;
+        
+      }
+    );
+  }
 
   logout() {
     this.authService.logout()

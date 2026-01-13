@@ -25,7 +25,7 @@ export interface Breed {
 
 export interface CashFlow {
   id?: number,
-  closeDate: string,
+  closeDate: string | null,
   closeType: string,
   initialAmount: number,
   inflows: number,

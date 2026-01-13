@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+
+  <p-floatLabel>
+    <input pInputText formControlName="name" id="name" required/>
+    <label for="name">Nombre</label>
+  </p-floatLabel>
+
+  <p-floatLabel>
+    <input pInputText formControlName="birthDate" id="birthDate" type="date" [max]="today" required />
+    <label for="birthDate">Fecha de Nacimiento</label>
+  </p-floatLabel>
+
+  <p-dropdown [options]="species" formControlName="species" placeholder="Especie" 
+  optionLabel="description" optionValue="id" appendTo="body" required>
+  </p-dropdown>
+
+  <p-dropdown [options]="breeds" formControlName="breed" placeholder="Raza" 
+  optionLabel="description" optionValue="id" appendTo="body" required >
+  </p-dropdown>
+
+  <div class="buttons">
+    <button class="btn footer-btn" (click)="submit()">Guardar</button>
+    <button class="cancel footer-btn" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

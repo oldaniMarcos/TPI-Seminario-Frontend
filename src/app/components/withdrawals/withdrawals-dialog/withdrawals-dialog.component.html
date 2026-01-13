@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+
+  <p-floatLabel>
+    <input pInputText formControlName="description" id="description" type="text" required />
+    <label for="description">Descripción</label>
+  </p-floatLabel>
+
+  <p-floatLabel>
+    <input pInputText formControlName="amount" id="amount" type="number" />
+    <label for="amount">Valor</label>
+  </p-floatLabel>
+
+  <div class="buttons">
+    <button class="btn footer-btn" (click)="submit()">Guardar</button>
+    <button class="cancel footer-btn" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

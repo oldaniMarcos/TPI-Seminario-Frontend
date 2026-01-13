@@ -4,7 +4,7 @@
 
   <div class="actions-bar">
     <div class="left-actions search-group">
-      <button class="btn" (click)="toggleCreatePopup()">Nuevo</button>
+      <button class="btn" (click)="newClient()">Nuevo</button>
 
       <select [(ngModel)]="docTypeFilter" (change)="findClients()" class="search-select">
         <option value="">Todos</option>
@@ -23,17 +23,15 @@
   </div>
 
 
-  <app-clients-table [clients]="clients" (edit)="toggleUpdatePopup($event)" (stateChangeRequest)="confirmStateChange($event)">
+  <app-clients-table [clients]="clients" (edit)="editClient($event)" (stateChangeRequest)="confirmStateChange($event)">
   </app-clients-table>
 
+  <p-dialog [(visible)]="showDialog" [modal]="true" [header]="dialogTitle" closeOnEscape="false" draggable="false"
+    resizable="false" [style]="{width: '25%'}" (onHide)="onDialogHide()">
+  
+    <app-clients-dialog *ngIf="renderDialogContent" [data]="selected" [editMode]="editMode" (save)="onSave($event)" (cancel)="onCancel()">
+    </app-clients-dialog>
+  
+  </p-dialog>
+
   <p-confirmDialog></p-confirmDialog>
-
-  <!--create-->
-  <!-- <app-client-popup [(display)]="displayCreatePopup" (confirm)="onConfirmCreate($event)"
-    title="Crear client"></app-client-popup> -->
-
-  <!--update-->
-  <!-- <app-client-popup [client]="selected" [(display)]="displayUpdatePopup" (confirm)="onConfirmUpdate($event)"
-    title="Editar client"></app-client-popup> -->
-
-  <!-- <app-client-info-popup [client]="selected" [(display)]="displaySelectPopup"></app-client-info-popup> -->

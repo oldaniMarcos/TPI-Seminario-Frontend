@@ -11,11 +11,20 @@ import { Pet } from '../../../../types';
 })
 export class PetsTableComponent {
   @Input() pets: Pet[] = []
+  @Input() adoptMode: boolean = false;
+  @Input() clientDisabled: boolean = false;
 
   @Output() stateChangeRequest = new EventEmitter<Pet>()
+  @Output() adoptRequest = new EventEmitter<Pet>()
+  @Output() editRequest = new EventEmitter<Pet>()
 
   onEdit(pet: Pet) {
-    console.log('WIP...', pet);
+    this.editRequest.emit(pet)
+  }
+
+  onAdopt(pet: Pet) {
+    this.adoptRequest.emit(pet)
+    // console.log(pet);
   }
 
   requestStateChange(pet: Pet) {

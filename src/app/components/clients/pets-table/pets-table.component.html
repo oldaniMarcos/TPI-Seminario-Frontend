@@ -26,16 +26,20 @@
         </span>
       </td>
 
-      <td class="actions">
-        <button class="btn btn-small edit" (click)="onEdit(pet)">Editar</button>
+      <td *ngIf="!adoptMode" class="actions">
+        <button class="btn btn-small edit" (click)="onEdit(pet)" [disabled]="clientDisabled">Editar</button>
         
-        <button *ngIf="pet.state === 'alta'" class="btn btn-small cancel" (click)="requestStateChange(pet)">
+        <button *ngIf="pet.state === 'alta'" class="btn btn-small cancel" (click)="requestStateChange(pet)" [disabled]="clientDisabled">
           Dar de baja
         </button>
         
-        <button *ngIf="pet.state === 'baja'" class="btn btn-small" (click)="requestStateChange(pet)">
+        <button *ngIf="pet.state === 'baja'" class="btn btn-small" (click)="requestStateChange(pet)" [disabled]="clientDisabled">
           Dar de alta
         </button>
+      </td>
+
+      <td *ngIf="adoptMode" class="actions">
+        <button class="btn btn-small" (click)="onAdopt(pet)" [disabled]="clientDisabled">Adoptar</button>
       </td>
 
     </tr>

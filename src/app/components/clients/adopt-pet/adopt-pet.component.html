@@ -1,0 +1,49 @@
+<img src="placeholder.jpg" class="image-banner" alt="">
+<div class="container">
+  <h1>Adoptar Mascota</h1>
+
+  <div class="actions-bar">
+    <div class="left-actions search-group">
+
+      <select [(ngModel)]="docTypeFilter" class="search-select">
+        <option value="DNI">DNI</option>
+        <option value="CI">CI</option>
+        <option value="LE">LE</option>
+        <option value="LC">LC</option>
+      </select>
+
+      <input type="text" [(ngModel)]="dniFilter" placeholder="Buscar por nro. de doc." class="search-input"
+        (keyup.enter)="findClient()" />
+
+      <button class="btn" (click)="findClient()">Buscar</button>
+    </div>
+
+    <div class="right-actions">
+      <button class="exit" routerLink="/clients">Cancelar</button>
+    </div>
+  </div>
+
+  <div *ngIf="invalidDocMessage" class="error-message">
+    {{ invalidDocMessage }}
+  </div>
+
+  <div *ngIf="clientDeactivatedMessage" class="error-message">
+    {{ clientDeactivatedMessage }}
+  </div>
+
+  <div *ngIf="noPetsMessage" class="error-message">
+    {{ noPetsMessage }}
+  </div>
+
+  <div *ngIf="sameClientMessage" class="error-message">
+    {{ sameClientMessage }}
+  </div>
+
+  <div *ngIf="clientDataMessage">
+    <h3>{{ clientDataMessage }}</h3>
+  </div>
+
+  <app-pets-table *ngIf="clientValid" [adoptMode]="true" [pets]="pets" (adoptRequest)="adoptPet($event)">
+  </app-pets-table>
+
+  <p-confirmDialog></p-confirmDialog>

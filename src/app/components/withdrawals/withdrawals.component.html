@@ -4,7 +4,7 @@
 
   <div class="actions-bar">
     <div class="left-actions search-group">
-      <button class="btn">Nuevo</button>
+      <button class="btn" [disabled]="!cashRegisterOpen" (click)="newWithdrawal()">Nuevo</button>
     </div>
 
     <div class="right-actions">
@@ -12,8 +12,19 @@
     </div>
   </div>
 
+  <div *ngIf="!cashRegisterOpen" class="error-message">
+    Abra la caja para registrar egresos
+  </div>
+
 
   <app-withdrawals-table [withdrawals]="withdrawals" (cancelRequest)="confirmCancel($event)">
   </app-withdrawals-table>
+
+  <p-dialog [(visible)]="showDialog" [modal]="true" [header]="dialogTitle" closeOnEscape="false" draggable="false"
+    resizable="false" [style]="{width: '25%'}">
+
+    <app-withdrawals-dialog [data]="selectedWithdrawal" (save)="onSave($event)" (cancel)="onCancel()"></app-withdrawals-dialog>
+
+  </p-dialog>
 
   <p-confirmDialog></p-confirmDialog>

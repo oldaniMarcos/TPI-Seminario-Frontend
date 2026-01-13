@@ -1,0 +1,43 @@
+<form [formGroup]="form">
+
+  <p-floatLabel>
+    <input pInputText formControlName="fullName" id="fullName" required />
+    <label for="name">Nombre y Apellido</label>
+  </p-floatLabel>
+
+  <p-dropdown [options]="docTypes" formControlName="docType" placeholder="Tipo de Documento">
+  </p-dropdown>
+  
+  <p-floatLabel>
+    <input pInputText formControlName="docNum" id="docNum" />
+    <label for="docNum">Documento</label>
+  </p-floatLabel>
+
+  <p-floatLabel>
+    <input pInputText formControlName="phone" />
+    <label>Teléfono</label>
+  </p-floatLabel>
+  
+  <p-floatLabel>
+    <input pInputText formControlName="address" />
+    <label>Dirección</label>
+  </p-floatLabel>
+
+  <!-- buttons to register pet or adopt -->
+
+  <div class="buttons">
+    <button class="btn footer-btn" (click)="submit()">Continuar</button>
+    <button class="cancel footer-btn" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>
+
+<p-dialog [(visible)]="showDialog" [modal]="true" [header]="dialogTitle" closeOnEscape="false" draggable="false" closable="false"
+    resizable="false" [style]="{width: '100%'}">
+  
+  <div class="buttons">
+    <button class="btn footer-btn" (click)="onRegister()">Registrar</button>
+    <button class="btn footer-btn" (click)="onAdopt()">Adoptar</button>
+    <button class="cancel footer-btn" (click)="onDialogCancel()">Cancelar</button>
+  </div>
+
+</p-dialog>

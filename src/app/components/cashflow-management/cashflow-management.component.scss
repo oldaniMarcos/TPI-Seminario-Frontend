@@ -17,6 +17,20 @@
   align-items: center;
 }
 
+.p-inputtext {
+  width: 100%;
+}
+
+.p-inputtext:hover {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.15);
+}
+
+.text-align-center {
+  text-align: center;
+}
+
 @media (max-width: 480px) {
   .container {
     margin: -40px 1rem 0;

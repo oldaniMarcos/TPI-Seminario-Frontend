@@ -94,7 +94,7 @@ export class VetsComponent {
 
       message: `
         <strong>${vet.fullName}</strong><br>
-        ${vet.docType} ${vet.docNum}<br>
+        ID ${vet.id} - Mat. ${vet.licenseNumber}<br>
         ¿Desea dar de <b>${nextState}</b> a este veterinario?
       `,
       accept: () => {

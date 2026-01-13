@@ -21,6 +21,7 @@ import { PetsComponent } from './components/clients/pets/pets.component';
 import { PastDueClientsComponent } from './components/past-due-clients/past-due-clients.component';
 import { BalanceComponent } from './components/balance/balance.component';
 import { BalanceMonthlyComponent } from './components/balance-monthly/balance-monthly.component';
+import { AdoptPetComponent } from './components/clients/adopt-pet/adopt-pet.component';
 
 export const routes: Routes = [
 
@@ -43,6 +44,8 @@ export const routes: Routes = [
   { path: 'clients', component: ClientsComponent, canActivate: [AuthGuard] },
 
   { path: 'client/:id/pets', component: PetsComponent, canActivate: [AuthGuard] },
+
+  { path: 'client/:id/adopt', component: AdoptPetComponent, canActivate: [AuthGuard] },
 
   { path: 'species-breeds', component: SpeciesBreedsComponent, canActivate: [AuthGuard] },
 

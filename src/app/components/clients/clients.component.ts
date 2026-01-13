@@ -8,18 +8,20 @@ import { ToastModule } from 'primeng/toast';
 import { ClientsTableComponent } from './clients-table/clients-table.component';
 import { RouterLink } from '@angular/router';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { ClientsDialogComponent } from './clients-dialog/clients-dialog.component';
 
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule, ClientsTableComponent, RouterLink, ConfirmDialogModule],
+  imports: [CommonModule, FormsModule, ToastModule, ClientsTableComponent, RouterLink, ConfirmDialogModule, DialogModule, ClientsDialogComponent],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.scss'
 })
 export class ClientsComponent {
   clients: Client[] = []
-  selected: Client = {
+  selected: Client | null = {
     id: 0,
     docNum: '',
     docType: '',
@@ -33,6 +35,10 @@ export class ClientsComponent {
 
   dniFilter: string = '';
   docTypeFilter: string = '';
+  showDialog: boolean = false;
+  dialogTitle: string = '';
+  renderDialogContent: boolean = false;
+  editMode: boolean = false;
 
   constructor(
     private clientService: ClientService,
@@ -61,12 +67,42 @@ export class ClientsComponent {
     });
   }
 
+  newClient() {
+    this.selected = null;
+    this.dialogTitle = 'Nuevo Cliente';
+    this.renderDialogContent = true;
+    this.showDialog = true;
+  }
+
+  editClient(client: Client) {
+    this.selected = client;
+    this.dialogTitle = 'Editar Cliente';
+    this.renderDialogContent = true;
+    this.showDialog = true;
+    this.editMode = true;
+  }
+
   createClient(client: Client): void {
-  this.clientService.post(client).subscribe(
-    (newClient: Client) => {
-      this.clients.push(newClient); 
-    },
-  );
+    this.clientService.post(client).subscribe(
+      (newClient: Client) => {
+        this.clients.push(newClient); 
+      },
+    );
+  }
+
+  onSave(data: any) {
+    if (this.selected) {
+      this.updateClient(this.selected.id!, data);
+      this.showDialog = false;
+    }
+  }
+
+  onCancel() {
+    this.showDialog = false;
+  }
+
+  onDialogHide() {
+    this.renderDialogContent = false;
   }
 
   updateClient(id: number, client: Client): void {
@@ -74,6 +110,8 @@ export class ClientsComponent {
       (updatedClient: Client) => {
         const index = this.clients.findIndex(c => c.id === id);
         if (index > -1) this.clients[index] = updatedClient;
+
+        this.findClients();
       },
     );
   }
@@ -86,69 +124,69 @@ export class ClientsComponent {
     );
   }
 
-  onStateChange(client: Client) {
+  // onStateChange(client: Client) {
 
-    if (!client.id) return;
+  //   if (!client.id) return;
 
-    const payload: Client = {
-      docNum: client.docNum,
-      docType: client.docType,
-      fullName: client.fullName,
-      phone: client.phone,
-      address: client.address,
-      state: client.state,
+  //   const payload: Client = {
+  //     docNum: client.docNum,
+  //     docType: client.docType,
+  //     fullName: client.fullName,
+  //     phone: client.phone,
+  //     address: client.address,
+  //     state: client.state,
 
-      petsCount: client.petsCount,
-    }
+  //     petsCount: client.petsCount,
+  //   }
     
-    this.updateClient(client.id, payload);
-  }
+  //   this.updateClient(client.id, payload);
+  // }
 
 
-  displayCreatePopup: boolean = false
-  displayUpdatePopup: boolean = false
-  displaySelectPopup: boolean = false
+  // displayCreatePopup: boolean = false
+  // displayUpdatePopup: boolean = false
+  // displaySelectPopup: boolean = false
 
   //toggle popups
 
-  toggleCreatePopup() {
-    this.displayCreatePopup = true
-  }
+  // toggleCreatePopup() {
+  //   this.displayCreatePopup = true
+  // }
 
-  toggleUpdatePopup(client: Client) {
-    this.selected = client
-    this.displayUpdatePopup = true
-  }
+  // toggleUpdatePopup(client: Client) {
+  //   this.selected = client
+  //   this.displayUpdatePopup = true
+  // }
 
-  toggleSelectPopup(client: Client) {
-    this.selected = client
-    this.displaySelectPopup = true
-  }
+  // toggleSelectPopup(client: Client) {
+  //   this.selected = client
+  //   this.displaySelectPopup = true
+  // }
 
-  toggleDeletePopup(client: Client) {
-    if (!client.id) return
+  // toggleDeletePopup(client: Client) {
+  //   if (!client.id) return
 
-    this.deleteClient(client.id)
-  }
+  //   this.deleteClient(client.id)
+  // }
 
   // confirmations
 
-  onConfirmCreate(client: Client) {
-    this.createClient(client)
-    this.displayCreatePopup = false
+  // onConfirmCreate(client: Client) {
+  //   this.createClient(client)
+  //   this.showDialog = false
 
-    this.messageService.add({severity: 'success', detail: 'Client creado correctamente.', life: 2000});
-  }
+  //   this.messageService.add({severity: 'success', detail: 'Client creado correctamente.', life: 2000});
+  // }
 
-  onConfirmUpdate(client: Client) {
-    if (!this.selected.id) return
+  // onConfirmUpdate(client: Client) {
+  //   if (!this.selected!.id) return
 
-    this.updateClient(this.selected.id, client)
-    this.displayUpdatePopup = false
+  //   this.updateClient(this.selected!.id, client)
+  //   this.showDialog = false
 
-    this.messageService.add({severity: 'success', detail: 'Client editado correctamente.', life: 2000});
+  //   this.messageService.add({severity: 'success', detail: 'Client editado correctamente.', life: 2000});
 
-  }  
+  // }  
 
   confirmStateChange(client: Client) {
 

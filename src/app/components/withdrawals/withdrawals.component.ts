@@ -7,31 +7,79 @@ import { WithdrawalsTableComponent } from './withdrawals-table/withdrawals-table
 import { Withdrawal } from '../../../types';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { WithdrawalService } from '../../services/withdrawal.service';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
+import { CashFlowService } from '../../services/cash-flow.service';
+import { WithdrawalsDialogComponent } from './withdrawals-dialog/withdrawals-dialog.component';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-withdrawals',
   standalone: true,
-  imports: [RouterLink, ConfirmDialogModule, MessageModule, ToastModule, WithdrawalsTableComponent],
+  imports: [RouterLink, ConfirmDialogModule, MessageModule, ToastModule, WithdrawalsTableComponent, CommonModule, WithdrawalsDialogComponent, DialogModule], 
   templateUrl: './withdrawals.component.html',
   styleUrl: './withdrawals.component.scss'
 })
 export class WithdrawalsComponent {
 
   withdrawals: Withdrawal[] = []
+  cashRegisterOpen: boolean = true;
+  currentCashRegisterId: number | null = null;
+  selectedWithdrawal: Withdrawal | null = null;
+  showDialog: boolean = false;
+  dialogTitle: string = '';
 
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private withdrawalService: WithdrawalService,
+    private cashFlowService: CashFlowService,
     private datePipe: DatePipe,
-    private currencyPipe: CurrencyPipe
+    private currencyPipe: CurrencyPipe,
   ) { }
 
   ngOnInit() {
+
+    this.checkCashRegisterState();
     this.withdrawalService.findAllPending().subscribe((data: Withdrawal[]) => {
       this.withdrawals = data;
     });
+  }
+
+  newWithdrawal() {
+    this.selectedWithdrawal = null;
+    this.dialogTitle = 'Nuevo Egreso';
+    this.showDialog = true;
+  }
+
+  onSave(data: Withdrawal) {
+
+    const withdrawal: Withdrawal = {
+      ...data,
+      cashFlowId: this.currentCashRegisterId!,
+    };
+
+    this.withdrawalService.post(withdrawal).subscribe((data: Withdrawal) => {
+      this.withdrawals.push(data);
+      this.showDialog = false;
+    });
+  }
+
+  onCancel() {
+    this.showDialog = false;
+  }
+
+  checkCashRegisterState(): void {
+    this.cashFlowService.findLatest().subscribe(
+      (data) => {
+        
+        this.cashRegisterOpen = data.closeType === '' && data.closeDate === null;
+
+        if (this.cashRegisterOpen) {
+          this.currentCashRegisterId = data.id!;          
+        }
+        
+      }
+    );
   }
 
   confirmCancel(withdrawal: Withdrawal) {

@@ -34,4 +34,8 @@ export class CashFlowService {
   delete(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.URL}/${id}`, {});
   }
+
+  findLatest(): Observable<CashFlow> {
+    return this.apiService.get<CashFlow>(`${this.URL}/latest`, {});
+  }
 }

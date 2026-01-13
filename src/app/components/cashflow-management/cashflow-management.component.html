@@ -4,16 +4,76 @@
   <div class="content">
     <h1>Manejo de Caja</h1>
 
+    <div *ngIf="!cashRegisterOpen" class="error-message">
+      No se cuenta con una caja abierta
+    </div>
+
+    <div *ngIf="cashRegisterOpen" class="info-message">
+      Caja abierta
+    </div>
+
     <!--These should be popups except withdrawals-->
 
     <div class="button-group">
-      <button class="btn" routerLink="/open">Abrir Caja</button>
-      <button class="btn" routerLink="/close">Cerrar Caja</button>
-      <button class="btn" routerLink="/change-shift">Cambio de Turno</button>
+      <button class="btn" (click)="openRegister()" [disabled]="cashRegisterOpen">Abrir Caja</button>
+      <button class="btn" (click)="closeRegister()" [disabled]="!cashRegisterOpen">Cerrar Caja</button>
+      <button class="btn" (click)="changeShift()" [disabled]="!cashRegisterOpen">Cambio de Turno</button>
       <button class="btn" routerLink="/withdrawals">Egresos</button>
       <button class="exit" routerLink="/home">Volver</button>
     </div>
 
   </div>
 </div>
+
+<p-dialog header="Abrir caja" [(visible)]="openRegisterDialog" [modal]="true" [closable]="false"
+  [dismissableMask]="false">
+
+  <div class="p-fluid">
+    <div class="field">
+      <input pInputText type="number" [(ngModel)]="amountInput" placeholder="Monto" (keyup.enter)="validateAmount()" />
+    </div>
+  </div>
+
+  <div *ngIf="amountError" class="error-message">
+    Monto inválido
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" class="cancel" (click)="closeDialogs()"></button>
+    <button pButton label="Ingresar" class="btn" autofocus (click)="validateAmount()"></button>
+  </ng-template>
+
+</p-dialog>
+
+<p-dialog header="¿Confirmar cierre de caja?" [(visible)]="closeRegisterDialog" [modal]="true" [closable]="false"
+  [dismissableMask]="false">
+
+  <div class="p-fluid">
+    <div class="field">
+      <h3 class="text-align-center">Saldo actual: {{ cashRegisterAmount | currency}}</h3>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" class="cancel" (click)="closeDialogs()"></button>
+    <button pButton label="Confirmar" class="btn" autofocus (click)="onCloseRegister()"></button>
+  </ng-template>
+
+</p-dialog>
+
+<p-dialog header="¿Confirmar cambio de turno?" [(visible)]="changeShiftDialog" [modal]="true" [closable]="false"
+  [dismissableMask]="false">
+
+  <div class="p-fluid">
+    <div class="field">
+      <h3 class="text-align-center">Se cerrará la sesión</h3>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" class="cancel" (click)="closeDialogs()"></button>
+    <button pButton label="Confirmar" class="btn" autofocus (click)="onChangeShift()"></button>
+  </ng-template>
+
+</p-dialog>
 
