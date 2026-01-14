@@ -21,6 +21,7 @@ import { VetsDialogComponent } from "./vets-dialog/vets-dialog.component";
 export class VetsComponent {
   showDialog: boolean = false;
   dialogTitle: string = '';
+  renderDialogContent: boolean = false;
   selectedVeterinary: Veterinary | null = null;
   vets: Veterinary[] = []
 
@@ -47,6 +48,7 @@ export class VetsComponent {
     this.selectedVeterinary = null;
     this.dialogTitle = 'Nuevo Veterinario';
     this.showDialog = true;
+    this.renderDialogContent = true;
   }
 
   editVeterinary(vet: Veterinary) {
@@ -54,6 +56,7 @@ export class VetsComponent {
     this.selectedVeterinary = vet;
     this.dialogTitle = 'Editar Veterinario';
     this.showDialog = true;
+    this.renderDialogContent = true;
   }
 
   onSave(data: Veterinary) {
@@ -77,6 +80,10 @@ export class VetsComponent {
 
   onCancel() {
     this.showDialog = false;
+  }
+
+  onDialogHide() {
+    this.renderDialogContent = false;
   }
 
   confirmStateChange(vet: Veterinary) {

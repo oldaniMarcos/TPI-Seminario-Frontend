@@ -18,9 +18,9 @@
 
   <p-confirmDialog></p-confirmDialog>
 
-  <p-dialog  [(visible)]="showDialog" [modal]="true" [header]="dialogTitle" closeOnEscape="false" draggable="false" resizable="false" [style]="{width: '25%'}">
+  <p-dialog  [(visible)]="showDialog" [modal]="true" [header]="dialogTitle" closeOnEscape="false" draggable="false" resizable="false" [style]="{width: '25%'}" (onHide)="onDialogHide()">
   
-    <app-vets-dialog [data]="selectedVeterinary" (save)="onSave($event)" (cancel)="onCancel()">
+    <app-vets-dialog [data]="selectedVeterinary" (save)="onSave($event)" (cancel)="onCancel()" *ngIf="renderDialogContent">
     </app-vets-dialog>
   
   </p-dialog>
