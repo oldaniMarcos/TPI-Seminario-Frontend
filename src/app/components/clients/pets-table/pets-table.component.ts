@@ -22,7 +22,8 @@ export class PetsTableComponent {
     this.editRequest.emit(pet)
   }
 
-  onAdopt(pet: Pet) {
+  onAdopt(event: MouseEvent, pet: Pet) {
+    event.stopPropagation();
     this.adoptRequest.emit(pet)
     // console.log(pet);
   }

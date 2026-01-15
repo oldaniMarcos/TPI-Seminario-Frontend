@@ -39,7 +39,7 @@
       </td>
 
       <td *ngIf="adoptMode" class="actions">
-        <button class="btn btn-small" (click)="onAdopt(pet)" [disabled]="clientDisabled">Adoptar</button>
+        <button class="btn btn-small" (click)="onAdopt($event, pet)" [disabled]="clientDisabled">Adoptar</button>
       </td>
 
     </tr>

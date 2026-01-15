@@ -5,11 +5,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Client } from '../../../../types';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
+import { PetsDialogComponent } from '../pets-dialog/pets-dialog.component';
+import { CommonModule } from '@angular/common';
+import { AdoptPetComponent } from '../adopt-pet/adopt-pet.component';
+import { AdoptPetDialogComponent } from "../adopt-pet-dialog/adopt-pet-dialog.component";
 
 @Component({
   selector: 'app-clients-dialog',
   standalone: true,
-  imports: [ReactiveFormsModule, FloatLabelModule, InputTextModule, DropdownModule, DialogModule],
+  imports: [CommonModule, ReactiveFormsModule, FloatLabelModule, InputTextModule, DropdownModule, DialogModule, PetsDialogComponent, AdoptPetDialogComponent],
   templateUrl: './clients-dialog.component.html',
   styleUrl: './clients-dialog.component.scss'
 })
@@ -24,7 +28,12 @@ export class ClientsDialogComponent {
   today = new Date().toISOString().split('T')[0];
   docTypes = ['DNI', 'CI', 'LE', 'LC'];
   showDialog: boolean = false;
+  showRegisterDialog: boolean = false;
+  showAdoptDialog: boolean = false;
   dialogTitle: string = '';
+  registerAdoptTitle: string = '';
+  isAdopting: boolean = false;
+  isRegistering: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -77,12 +86,26 @@ export class ClientsDialogComponent {
     this.showDialog = false;
   }
 
-  onAdopt() {
+  onAdoptCancel() {
+    this.showAdoptDialog = false;
+  }
 
+  onRegisterCancel() {
+    this.showRegisterDialog = false;
+  }
+
+  onAdopt() {
+    this.showDialog = false;
+    this.registerAdoptTitle = "Registrar Adopción";
+    this.showAdoptDialog = true;
+    this.showRegisterDialog = false;
   }
 
   onRegister() {
-
+    this.showDialog = false;
+    this.registerAdoptTitle = "Registrar Mascota";
+    this.showAdoptDialog = false;
+    this.showRegisterDialog = true;
   }
 
   notInFuture(control: AbstractControl): ValidationErrors | null {

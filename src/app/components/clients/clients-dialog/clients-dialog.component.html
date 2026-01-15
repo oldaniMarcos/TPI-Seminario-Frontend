@@ -32,12 +32,26 @@
 </form>
 
 <p-dialog [(visible)]="showDialog" [modal]="true" [header]="dialogTitle" closeOnEscape="false" draggable="false" closable="false"
-    resizable="false" [style]="{width: '100%'}">
+    resizable="false" [style]="{width: '95%'}">
   
   <div class="buttons">
     <button class="btn footer-btn" (click)="onRegister()">Registrar</button>
     <button class="btn footer-btn" (click)="onAdopt()">Adoptar</button>
     <button class="cancel footer-btn" (click)="onDialogCancel()">Cancelar</button>
   </div>
+
+</p-dialog>
+
+<p-dialog [(visible)]="showRegisterDialog" [modal]="true" [header]="registerAdoptTitle" closeOnEscape="false" draggable="false"
+  closable="false" resizable="false" >
+
+  <app-pets-dialog (cancel)="onRegisterCancel()"></app-pets-dialog>
+
+</p-dialog>
+
+<p-dialog [(visible)]="showAdoptDialog" [modal]="true" [header]="registerAdoptTitle" closeOnEscape="false"
+  draggable="false" closable="false" resizable="false">
+
+  <app-adopt-pet-dialog (cancel)="onAdoptCancel()"></app-adopt-pet-dialog>
 
 </p-dialog>
