@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Breed, Pet, Species } from '../../../../types';
 import { SpeciesService } from '../../../services/species.service';
 import { BreedService } from '../../../services/breed.service';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-pets-dialog',
@@ -74,11 +75,11 @@ export class PetsDialogComponent {
     if (this.form.invalid) return;
 
     this.save.emit(this.form.value);
-    this.form.reset();
+    this.form.reset({ state: 'alta' });
   }
 
   onCancel() {
-    this.form.reset();
+    this.form.reset({ state: 'alta' });
     this.cancel.emit();
   }
 

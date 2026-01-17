@@ -45,13 +45,24 @@
 <p-dialog [(visible)]="showRegisterDialog" [modal]="true" [header]="registerAdoptTitle" closeOnEscape="false" draggable="false"
   closable="false" resizable="false" >
 
-  <app-pets-dialog (cancel)="onRegisterCancel()"></app-pets-dialog>
+  <app-pets-dialog (cancel)="onRegisterCancel()" (save)="onPetRegistered($event)"></app-pets-dialog>
 
 </p-dialog>
 
 <p-dialog [(visible)]="showAdoptDialog" [modal]="true" [header]="registerAdoptTitle" closeOnEscape="false"
   draggable="false" closable="false" resizable="false">
 
-  <app-adopt-pet-dialog (cancel)="onAdoptCancel()"></app-adopt-pet-dialog>
+  <app-adopt-pet-dialog (cancel)="onAdoptCancel()" (adopt)="onPetAdopted($event)"></app-adopt-pet-dialog>
+
+</p-dialog>
+
+<p-dialog [(visible)]="showContinueOrConfirmDialog" [modal]="true" header="¿Continuar?" closeOnEscape="false"
+  draggable="false" closable="false" resizable="false">
+
+  <div class="buttons">
+    <button class="btn footer-btn" (click)="onRegister()">Registrar</button>
+    <button class="btn footer-btn" (click)="onAdopt()">Adoptar</button>
+    <button class="btn footer-btn" (click)="onCompleteRegistration()">Finalizar</button>
+  </div>
 
 </p-dialog>

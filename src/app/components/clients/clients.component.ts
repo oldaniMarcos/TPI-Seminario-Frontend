@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Client } from '../../../types';
+import { Client, Pet } from '../../../types';
 import { ClientService } from '../../services/client.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,9 @@ import { ClientsTableComponent } from './clients-table/clients-table.component';
 import { RouterLink } from '@angular/router';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-import { ClientsDialogComponent } from './clients-dialog/clients-dialog.component';
+import { ClientRegistrationPayload, ClientsDialogComponent } from './clients-dialog/clients-dialog.component';
+import { PetService } from '../../services/pet.service';
+import { forkJoin, of, switchMap } from 'rxjs';
 
 
 @Component({
@@ -43,7 +45,8 @@ export class ClientsComponent {
   constructor(
     private clientService: ClientService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private petService: PetService,
   ) { }
 
   ngOnInit() {
@@ -94,7 +97,10 @@ export class ClientsComponent {
     if (this.selected) {
       this.updateClient(this.selected.id!, data);
       this.showDialog = false;
-    }
+      return;
+    } 
+
+    this.createClientAndPets(data);
   }
 
   onCancel() {
@@ -122,6 +128,65 @@ export class ClientsComponent {
         this.clients = this.clients.filter(c => c.id !== id);
       },
     );
+  }
+
+  changePetClientId$(pet: Pet, adoptingClientId: number) {
+
+    const updatedPet: Pet = {
+      name: pet.name,
+      age: pet.age,
+      birthDate: pet.birthDate,
+      state: pet.state,
+      breedId: pet.breedId,
+      clientId: adoptingClientId,
+    };
+
+    return this.petService.patch(pet.id!, updatedPet)
+
+  }
+
+  registerPet$(data: any, clientId: number) {
+
+    const newPet: Pet = {
+      name: data.name,
+      birthDate: data.birthDate,
+      age: Math.floor((new Date().getTime() - new Date(data.birthDate).getTime()) / (1000 * 60 * 60 * 24 * 365.25)),
+      state: data.state,
+      clientId: clientId,
+      breedId: data.breed,
+    };
+
+    return this.petService.post(newPet)
+    
+  }
+
+  private createClientAndPets(payload: ClientRegistrationPayload): void {
+    this.clientService.post(payload.client).pipe(
+
+      switchMap((newClient: Client) => {
+        this.clients.push(newClient);
+
+        const registerRequests = payload.petsToRegister.map(pet =>
+          this.registerPet$(pet, newClient.id!)
+        );
+
+        const adoptRequests = payload.petsToAdopt.map(pet =>
+          this.changePetClientId$(pet, newClient.id!)
+        );
+
+        const allRequests = [...registerRequests, ...adoptRequests];
+
+        return allRequests.length ? forkJoin(allRequests) : of(null);
+      })
+
+    ).subscribe({
+      next: () => {
+        this.showDialog = false;
+      },
+      error: err => {
+        console.error(err);
+      }
+    });
   }
 
   // onStateChange(client: Client) {

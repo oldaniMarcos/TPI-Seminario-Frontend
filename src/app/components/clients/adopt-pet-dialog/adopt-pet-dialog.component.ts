@@ -22,6 +22,7 @@ export class AdoptPetDialogComponent {
 
 
   @Output() cancel = new EventEmitter<void>();
+  @Output() adopt = new EventEmitter<Pet>();
 
   adoptingClientId: number = 0;
   dniFilter: string = '';
@@ -136,12 +137,18 @@ export class AdoptPetDialogComponent {
       `,
       accept: () => {
         
-        this.changePetClientId(pet, this.adoptingClientId)
-        
+        // this.changePetClientId(pet, this.adoptingClientId)
+        this.adopt.emit(pet);
+
+        this.dniFilter = '';
+        this.docTypeFilter = 'DNI';
+        this.clientValid = false;
+        this.clientDataMessage = '';
       }
     });
   }
 
+  // unused in this component
   changePetClientId(pet: Pet, adoptingClientId: number): void {
 
     const updatedPet: Pet = {
