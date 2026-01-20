@@ -1,0 +1,188 @@
+:host {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  font-family: 'Segoe UI',
+  Roboto,
+  Arial,
+  sans-serif;
+  align-items: center;
+}
+
+.container {
+  text-align: center;
+  width: 90%;
+
+  h1 {
+    margin: 0;
+  }
+
+  .search-input {
+    width: 260px;
+    max-width: 300px;
+    padding: 11.2px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 0px;
+
+    background-color: #f9f9f9;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.15);
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+
+    button {
+      background-color: #e0e0e0;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+
+  .btn {
+    margin: 0 1rem 0 0;
+
+    .exit {
+      margin: 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cliente-card {
+      width: 60%;
+    }
+  }
+}
+
+.actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.left-actions {
+  gap: 0.5rem;
+}
+
+.left-actions button,
+.right-actions button {
+  flex: 1;
+  min-width: 100px;
+  font-size: 1rem;
+}
+
+.right-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+
+  button {
+    border: 1px solid #4caf50;
+
+    &:active {
+      transform: scale(1);
+    }
+  }
+}
+
+.search-select {
+  height: 42px;
+  width: 18%;
+  padding: 0 0.5rem;
+  font-size: 0.95rem;
+  border: 1px solid #ddd;
+  border-right: none;
+  border-radius: 6px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  background-color: #ffffff;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* flecha custom */
+  background-image: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23666' viewBox='0 0 16 16'>\
+  <path d='M4 6l4 4 4-4'/>\
+  </svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.2rem center;
+}
+
+.search-select:focus {
+  outline: none;
+  border-right: 1px solid;
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.15);
+}
+
+input[type=month]:required:invalid::-webkit-datetime-edit {
+  color: transparent;
+}
+
+input[type=month]:focus::-webkit-datetime-edit {
+  color: #4b5563 !important;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.chart-wrapper {
+  width: 100%;
+}
+
+:host ::ng-deep p-chart {
+  display: flex;
+  width: 100%;
+}
+
+:host ::ng-deep p-chart>div {
+  flex: 1 1 auto;
+}
+
+.balance-detail {
+  margin: 0;
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-around;
+
+  p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+  }
+}

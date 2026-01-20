@@ -1,1 +1,40 @@
-<p>balance-monthly works!</p>
+<img src="placeholder.jpg" class="image-banner" alt="">
+<div class="container">
+  <h1>Balance Mensual</h1>
+
+  <div class="actions-bar">
+    <div class="left-actions search-group">
+
+      <form [formGroup]="form">
+        <p-floatLabel>
+          <input pInputText formControlName="fromDate" id="fromDate" type="month" [max]="currentMonth" required />
+          <label for="fromDate">Desde</label>
+        </p-floatLabel>
+
+        <p-floatLabel>
+          <input pInputText formControlName="toDate" id="toDate" type="month" [max]="currentMonth" required />
+          <label for="toDate">Hasta</label>
+        </p-floatLabel>
+
+        <button class="btn" (click)="getByDate()">Mostrar</button>
+      </form>
+    </div>
+
+    <div class="right-actions">
+      <button class="exit" routerLink="/reports">Volver</button>
+    </div>
+  </div>
+
+  <div *ngIf="invalidDatesMessage" class="error-message">
+    {{ invalidDatesMessage }}
+  </div>
+
+  <div *ngIf="showChart" class="balance-detail">
+    <p>Total: {{ netBalance | currency }}</p>
+  </div>
+
+  <div *ngIf="showChart" class="chart-wrapper">
+    <p-chart #chart type="bar" [data]="chartData" [options]="chartOptions"
+      style="height: 400px; width: 100%; display: flex;">
+    </p-chart>
+  </div>

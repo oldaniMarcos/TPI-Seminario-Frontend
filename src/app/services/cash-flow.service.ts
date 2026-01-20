@@ -38,4 +38,8 @@ export class CashFlowService {
   findLatest(): Observable<CashFlow> {
     return this.apiService.get<CashFlow>(`${this.URL}/latest`, {});
   }
+
+  findByDateRange(fromDate: string, toDate: string): Observable<CashFlow[]> {
+    return this.apiService.get<CashFlow[]>(`${this.URL}/date-range/${fromDate}/${toDate}`, {});
+  }
 }
