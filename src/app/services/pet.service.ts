@@ -19,8 +19,8 @@ export class PetService {
     return this.apiService.get<Pet[]>(this.URL, {});
   }
 
-  findOne(id: number): Observable<Pet> {
-    return this.apiService.get<Pet>(`${this.URL}/${id}`, {});
+  findOne<T = Pet>(id: number): Observable<T> {
+    return this.apiService.get<T>(`${this.URL}/${id}`, {});
   }
 
   post(pet: Pet): Observable<Pet> {

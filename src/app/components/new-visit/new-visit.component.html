@@ -1,1 +1,132 @@
-<p>new-visit works!</p>
+<form [formGroup]="form">
+
+  <div class="inline-group">
+    <p-floatLabel class="input-grow">
+      <input pInputText formControlName="petId" id="petId" type="number" required />
+      <label for="petId">Nro. Historia Clínica</label>
+    </p-floatLabel>
+  </div>
+
+  <div *ngIf="petIdInvalid" class="error-message">
+    Número de historia clínica no encontrado
+  </div>
+
+  <div *ngIf="petDisabled" class="error-message">
+    La mascota se encuentra dada de baja
+  </div>
+
+  <div *ngIf="clientDisabled" class="error-message">
+    El cliente se encuentra dado de baja
+  </div>
+
+  <div *ngIf="clientDataMessage" class="info-message">
+    {{ clientDataMessage }}
+  </div>
+
+  <div *ngIf="clientDataMessage" class="form-group">
+    <p-dropdown [options]="vetsOptions" formControlName="vetId" placeholder="Veterinario" appendTo="body">
+    </p-dropdown>
+
+    <p-floatLabel>
+      <input pInputText formControlName="diagnostic" id="diagnostic" type="text"/>
+      <label for="diagnostic">Observaciones</label>
+    </p-floatLabel>
+
+    <div *ngIf="clientDataMessage" class="form-group">
+    
+      <div formArrayName="supplies" class="supplies-container">
+    
+        <div class="inline-group" *ngFor="let supply of supplies.controls; let i = index" [formGroupName]="i">
+    
+          <p-dropdown class="input-grow" [options]="getFilteredSupplyOptions(i)" formControlName="supplyTypeId" placeholder="Insumo"
+            appendTo="body">
+          </p-dropdown>
+    
+          <p-floatLabel>
+            <input pInputText class="quantity-input" formControlName="quantity" type="number" [attr.max]="getSupplyUnits(i)" min="1" (input)="onQuantityInput(i,$event)"/>
+            <label>Cant.</label>
+          </p-floatLabel>
+    
+          <!-- shows icons only in the first row -->
+          <ng-container *ngIf="i === 0">
+            <i class="pi pi-plus-circle btn add" (click)="canAddSupply() && addSupply()" [class.disabled]="!canAddSupply()"></i>
+    
+            <i class="pi pi-minus-circle btn remove" (click)="removeSupply()" [class.disabled]="supplies.length === 1"></i>
+          </ng-container>
+    
+        </div>
+    
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="buttons">
+    <button class="btn footer-btn" (click)="continue()">Continuar</button>
+    <button class="cancel footer-btn" (click)="onCancel()">Cancelar</button>
+  </div>
+
+  
+
+  <p-dialog [(visible)]="showContinueDialog" [modal]="true" header="Confirmar" closeOnEscape="false" draggable="false"
+    closable="false" resizable="false" [style]="{width: '100%'}">
+
+    <div class="continuation-div">
+
+      <p-floatLabel>
+        <input pInputText formControlName="visitValue" id="visitValue" type="number" (input)="onVisitValueChange()"
+          required />
+        <label for="visitValue">Valor atención</label>
+      </p-floatLabel>
+
+      <div>
+        <h4>Insumos utilizados</h4>
+      
+        <ul class="supplies-list">
+          <li *ngFor="let s of suppliesSummary" class="supplies-item">
+            <span class="supplies-name">{{ s.name }}</span>
+            <span class="supplies-qty">x{{ s.quantity }}</span>
+            <span class="supplies-cost">{{ s.quantity * s.cost | currency}}</span>
+          </li>
+        </ul>
+      
+        <div class="summary-total">
+          Insumos: {{ totalSuppliesCost | currency}}
+        </div>
+      </div>
+
+      <div class="payment-section">
+        <p-checkbox formControlName="payInInstallments" binary="true" inputId="installments" (onChange)="onPaymentModeChange()">
+        </p-checkbox>
+
+        <label for="installments">Pagar en 3 cuotas</label>
+      </div>
+
+      <div class="total-box">
+        <div>Total atención: {{totalVisitCost | currency}}</div>
+        <div>Total final: {{total | currency}}</div>
+
+        <div *ngIf="!payInInstallments" class="full-pay">
+          Pago total: {{total | currency}}
+        </div>
+
+        <div *ngIf="payInInstallments" class="installments">
+          <div class="installment-pay">3 cuotas de: {{installmentValue | currency}}</div>
+          <div>Primer pago: {{firstPayDate}}</div>
+          <div>Vencimiento: {{dueDate}}</div>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button class="btn footer-btn" (click)="onSavePress()">Finalizar</button>
+        <button class="cancel footer-btn" (click)="closeContinueDialog()">Volver</button>
+      </div>
+
+    </div>
+
+  </p-dialog>
+
+  <p-confirmDialog></p-confirmDialog>
+
+</form>

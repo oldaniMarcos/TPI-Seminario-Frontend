@@ -5,6 +5,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-prices-dialog',
@@ -26,6 +27,7 @@ export class PricesDialogComponent {
 
   constructor(
     private fb: FormBuilder,
+    private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +50,10 @@ export class PricesDialogComponent {
   }
 
   submit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor, complete todos los campos' });
+      return;
+    }
 
     this.save.emit(this.form.value);
     this.form.reset();

@@ -8,6 +8,7 @@ import { DialogModule } from 'primeng/dialog';
 import { PetsDialogComponent } from '../pets-dialog/pets-dialog.component';
 import { CommonModule } from '@angular/common';
 import { AdoptPetDialogComponent } from "../adopt-pet-dialog/adopt-pet-dialog.component";
+import { MessageService } from 'primeng/api';
 
 export interface ClientRegistrationPayload {
   client: Client;
@@ -47,6 +48,7 @@ export class ClientsDialogComponent {
 
   constructor(
     private fb: FormBuilder,
+    private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +76,10 @@ export class ClientsDialogComponent {
   }
 
   submit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor, complete todos los campos' });
+      return;
+    }
 
     if (this.editMode) {
       this.save.emit(this.form.value);

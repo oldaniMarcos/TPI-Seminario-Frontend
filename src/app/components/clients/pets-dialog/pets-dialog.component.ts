@@ -8,6 +8,7 @@ import { Breed, Pet, Species } from '../../../../types';
 import { SpeciesService } from '../../../services/species.service';
 import { BreedService } from '../../../services/breed.service';
 import { state } from '@angular/animations';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-pets-dialog',
@@ -30,7 +31,8 @@ export class PetsDialogComponent {
   constructor(
     private fb: FormBuilder,
     private speciesService: SpeciesService,
-    private breedService: BreedService
+    private breedService: BreedService,
+    private messageService: MessageService,
   ) {}
 
   findAllSpecies(): void {
@@ -72,7 +74,10 @@ export class PetsDialogComponent {
   }
 
   submit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor, complete todos los campos' });
+      return;
+    }
 
     this.save.emit(this.form.value);
     this.form.reset({ state: 'alta' });

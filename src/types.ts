@@ -73,6 +73,21 @@ export interface Pet {
   speciesName?: string,
 }
 
+export interface PetWithClient extends Pet {
+  client: {
+    id: number;
+    fullName: string;
+    docType: string;
+    docNum: string;
+    state: 'alta' | 'baja';
+  };
+  breed?: {
+    id: number;
+    description: string;
+  };
+}
+
+
 export interface ProfitMargin {
   id?: number,
   beginDate: string,
@@ -100,6 +115,7 @@ export interface SupplyType {
 
   currentPrice?: number,
   lotsCount?: number,
+  totalUnits?: number,
 }
 
 export interface User {

@@ -7,6 +7,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { DividerModule } from 'primeng/divider';
 import { CommonModule } from '@angular/common';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-supply-types-dialog',
@@ -28,6 +29,7 @@ export class SupplyTypesDialogComponent {
 
   constructor(
     private fb: FormBuilder,
+    private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -86,7 +88,10 @@ export class SupplyTypesDialogComponent {
   }
 
   submit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor, complete todos los campos' });
+      return;
+    }
 
     this.save.emit(this.form.getRawValue());
 

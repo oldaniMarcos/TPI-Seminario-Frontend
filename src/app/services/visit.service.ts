@@ -34,4 +34,8 @@ export class VisitService {
   delete(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.URL}/${id}`, {});
   }
+
+  registerVisit(visit: any): Observable<any> {
+    return this.apiService.post<any, any>(`${this.URL}/register`, visit, {});
+  }
 }

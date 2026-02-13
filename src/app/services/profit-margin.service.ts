@@ -34,4 +34,8 @@ export class ProfitMarginService {
   delete(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.URL}/${id}`, {});
   }
+
+  findLatest(): Observable<ProfitMargin> {
+    return this.apiService.get<ProfitMargin>(`${this.URL}/latest`, {});
+  }
 }

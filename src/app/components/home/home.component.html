@@ -9,7 +9,7 @@
     </div>
 
     <div class="button-group">
-      <button class="btn" routerLink="/new-visit" [disabled]="!cashRegisterOpen">Nueva Atención</button>
+      <button class="btn" (click)="newVisit()" [disabled]="!cashRegisterOpen">Nueva Atención</button>
       <button class="btn" routerLink="/manage">Gestión</button>
       <button class="btn" routerLink="/cashflow-management">Manejo de Caja</button>
       <button class="btn" routerLink="/installments">Pago de Cuotas</button>
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<p-dialog header="Ingrese el token de acceso" [(visible)]="tokenDialogVisible" [modal]="true" [closable]="false"
+<p-dialog header="Ingrese el token de acceso" [(visible)]="tokenDialogVisible" [modal]="true" [closable]="false" draggable="false"
   [dismissableMask]="false">
 
   <div class="p-fluid">
@@ -37,5 +37,14 @@
     <button pButton label="Cancelar" class="cancel" (click)="closeTokenDialog()"></button>
     <button pButton label="Ingresar" class="btn" autofocus (click)="validateToken()"></button>
   </ng-template>
+
+</p-dialog>
+
+<p-dialog [(visible)]="showDialog" [modal]="true" header="Nueva Atención" closeOnEscape="false" draggable="false"
+  resizable="false" [style]="{width: '35%'}" (onHide)="onDialogHide()">
+
+  <app-new-visit *ngIf="renderDialogContent" (save)="onSave($event)"
+    (cancel)="onCancel()">
+  </app-new-visit>
 
 </p-dialog>

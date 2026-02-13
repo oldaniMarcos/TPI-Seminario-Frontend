@@ -8,22 +8,29 @@ import { MessageModule } from 'primeng/message';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CashFlowService } from '../../services/cash-flow.service';
+import { NewVisitComponent } from "../new-visit/new-visit.component";
+import { VisitService } from '../../services/visit.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, DialogModule, InputTextModule, ButtonModule, MessageModule, FormsModule, CommonModule],
+  imports: [RouterLink, DialogModule, InputTextModule, ButtonModule, MessageModule, FormsModule, CommonModule, NewVisitComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 
   cashRegisterOpen: boolean = false;
+  renderDialogContent: boolean = false;
+  showDialog: boolean = false;
   
   constructor(
       private router: Router
     , private authService: AuthService
-    , private cashFlowService: CashFlowService,
+    , private cashFlowService: CashFlowService
+    , private visitService: VisitService
+    , private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -59,6 +66,10 @@ export class HomeComponent {
     this.tokenDialogVisible = false;
   }
 
+  onDialogHide() {
+    this.renderDialogContent = false;
+  }
+
   validateToken() {
     const validToken = '1234';
 
@@ -68,5 +79,28 @@ export class HomeComponent {
     } else {
       this.tokenError = true;
     }
+  }
+
+  newVisit() {
+    this.showDialog = true;
+    this.renderDialogContent = true;
+  }
+
+  onSave(data: any) {
+
+    this.showDialog = false;
+
+    this.visitService.registerVisit(data).subscribe(
+      (response) => {
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Visita registrada exitosamente' });
+      },
+      (error) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Hubo un error al registrar la visita' });
+      }
+    )
+  }
+
+  onCancel() {
+    this.showDialog = false;
   }
 }

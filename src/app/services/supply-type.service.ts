@@ -34,4 +34,8 @@ export class SupplyTypeService {
   delete(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.URL}/${id}`, {});
   }
+
+  findAllWithActiveUnits(): Observable<SupplyType[]> {
+    return this.apiService.get<SupplyType[]>(`${this.URL}/units`, {});
+  }
 }
