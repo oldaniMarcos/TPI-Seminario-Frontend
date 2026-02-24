@@ -1,4 +1,4 @@
-<img src="placeholder.jpg" class="image-banner" alt="">
+<img src="banner-cropped.png" class="image-banner" alt="">
 <div class="container">
   <h1>Clientes Morosos</h1>
 
@@ -9,6 +9,10 @@
     <div class="right-actions">
       <button class="exit" routerLink="/reports">Volver</button>
     </div>
+  </div>
+
+  <div *ngIf="emptyMessage" class="error-message">
+    {{ emptyMessage }}
   </div>
 
 

@@ -7,11 +7,12 @@ import { RouterLink } from '@angular/router';
 import { Client } from '../../../types';
 import { ClientService } from '../../services/client.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-past-due-clients',
   standalone: true,
-  imports: [PastDueTableComponent, ConfirmDialogModule, ToastModule, MessageModule, RouterLink],
+  imports: [CommonModule, PastDueTableComponent, ConfirmDialogModule, ToastModule, MessageModule, RouterLink],
   templateUrl: './past-due-clients.component.html',
   styleUrl: './past-due-clients.component.scss'
 })
@@ -24,6 +25,7 @@ export class PastDueClientsComponent {
   ) { }
 
   clients: any[] = [];
+  emptyMessage: string = '';
 
   ngOnInit() {
     this.findAllPastDue()
@@ -32,7 +34,11 @@ export class PastDueClientsComponent {
   findAllPastDue(): void {
     this.clientService.findAllPastDue().subscribe((data: any[]) => {
 
-      this.clients = data
+      this.clients = data;
+
+      if (this.clients.length === 0) {
+        this.emptyMessage = 'No hay clientes con cuotas vencidas';
+      }
 
     });
   }
